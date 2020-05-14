@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"nb_server/mysql"
-	"nb_server/tcpserver"
 	"net/http"
 	"text/template"
+	"wristband-nb-server/mysql"
+	"wristband-nb-server/tcpserver"
 )
 
 const (
@@ -89,6 +89,6 @@ func LoadData() []ReciveData {
 }
 
 func main() {
-	Webservice()
 	go tcpserver.ServerTCP()
+	Webservice()
 }

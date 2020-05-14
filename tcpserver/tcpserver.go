@@ -3,10 +3,10 @@ package tcpserver
 import (
 	"crypto/md5"
 	"fmt"
-	"nb_server/mysql"
 	"net"
 	"strconv"
 	"strings"
+	"wristband-nb-server/mysql"
 )
 
 const (
@@ -80,8 +80,8 @@ func HandleConnection(conn net.Conn) {
 				RegisteredDevice(s[1], s[2], s[3], s[4]) // 註冊裝置
 			} else {
 				fmt.Printf("user : %s 存在,  開始比對 client 與 server 計算的mac...\n", s[1])
-				checkPassword(s[1], s[2]) // 比對 client 與 server 計算的mac
-				// InsertReciveData(s, remoteAddr) // 新增資料
+				checkPassword(s[1], s[2])       // 比對 client 與 server 計算的mac
+				InsertReciveData(s, remoteAddr) // 新增資料
 			}
 		} else {
 			conn.Close()
@@ -168,10 +168,12 @@ func InsertReciveData(deviceInfo []string, addr string) {
 		fmt.Println(err)
 	}
 
+	fmt.Println(deviceInfo)
+
 	// 透過 mac 取得 name; addr 透過變數 remoteAddr 取得
 	// e.g : AT+QISEND=0,51,"user,NBIOTserver,00-15-AF-5A-F8-42,-84,2020-04-22,1"
 	var name string
-	row := db.QueryRow("SELECT name FROM device WHERE mac = ?", deviceInfo[2])
+	row := db.QueryRow("SELECT name FROM device WHERE mac = ?", deviceInfo[3])
 	if err := row.Scan(&name); err != nil {
 		//mac 不存在故顯示訊息
 		fmt.Printf("查無 %s 裝置, 請先註冊後再傳送資料\n", deviceInfo[2])
@@ -179,13 +181,13 @@ func InsertReciveData(deviceInfo []string, addr string) {
 	}
 
 	if result, err := db.Exec(
-		"INSERT INTO recive VALUES ('', ?, ?, ?, ?, ?, ?)",
+		"INSERT INTO recive VALUES (null, ?, ?, ?, ?, ?, ?)",
 		name,
 		addr,
-		deviceInfo[2],
 		deviceInfo[3],
 		deviceInfo[4],
 		deviceInfo[5],
+		deviceInfo[6],
 	); err != nil {
 		fmt.Printf("新增資料失敗 Insert error: %s\n", err)
 	} else {
