@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 每 n 秒自動刷新 -->
+    <!-- <meta http-equiv="refresh" content="10"> -->
+
+    <title>NB.dashboard</title>
+    <link rel="icon" href="static/img/glow-wristband.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="#">
+
+    <!-- Bootstrap Start -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <!-- Bootstrap End -->
+
+    <link rel="stylesheet" type="text/css" href="static/css/index.css">
+</head>
+
+<body>
+    <div class="container mt-5 py-5">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <p class="h2"><i class="fab fa-bluetooth" style="color:#0082FC"></i>藍芽居家自主健康管理手環</p>
+            </div>
+        </div>
+
+        <div class="c-card">
+            <p class="text-muted font-weight-normal">目前接收資料</p>
+            <table id="table" data-toolbar="#toolbar" data-search="true" 
+                data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true"
+                data-show-columns-toggle-all="true" data-show-export="true"
+                data-click-to-select="true" data-minimum-count-columns="2"
+                data-show-pagination-switch="true" data-pagination="true" data-id-field="id"
+                data-page-list="[10, 25, 50, 100, all]" data-show-footer="true" data-response-handler="responseHandler">
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Start -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <!-- Bootstrap End -->
+
+    <!-- Font Awesome Start-->
+    <script src="https://kit.fontawesome.com/a95d80e3ff.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome End-->
+
+    <script src="static/js/index.js"></script>
+
+    <script>
+        let content = "{{.}}"; //取得資料
+        loadReciveData(content);
+    </script>
+
+</body>
+
+</html>
