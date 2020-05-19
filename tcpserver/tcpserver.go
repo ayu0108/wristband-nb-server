@@ -69,23 +69,25 @@ func HandleConnection(conn net.Conn) {
 		s := strings.Split(r, ",")
 		fmt.Println(s)
 
-		uInfo := s[0]
-		fmt.Printf("Account and password form client = %s\n", uInfo)
-		fmt.Println(s)
+		InsertReciveDataTemp(s, remoteAddr)
+
+		// uInfo := s[0]
+		// fmt.Printf("Account and password form client = %s\n", uInfo)
+		// fmt.Println(s)
 
 		// 處理資料傳送
-		if uInfo == "nbserver" {
-			if err := CheckUserIsEmpty(s[1]); err == false { //檢查是否有這個 user
-				fmt.Printf("user : %s 不存在，開始註冊裝置... \n", s[1])
-				RegisteredDevice(s[1], s[2], s[3], s[4]) // 註冊裝置
-			} else {
-				fmt.Printf("user : %s 存在,  開始比對 client 與 server 計算的mac...\n", s[1])
-				checkPassword(s[1], s[2])       // 比對 client 與 server 計算的mac
-				InsertReciveData(s, remoteAddr) // 新增資料
-			}
-		} else {
-			conn.Close()
-		}
+		// if uInfo == "nbserver" {
+		// 	if err := CheckUserIsEmpty(s[1]); err == false { //檢查是否有這個 user
+		// 		fmt.Printf("user : %s 不存在，開始註冊裝置... \n", s[1])
+		// 		RegisteredDevice(s[1], s[2], s[3], s[4]) // 註冊裝置
+		// 	} else {
+		// 		fmt.Printf("user : %s 存在,  開始比對 client 與 server 計算的mac...\n", s[1])
+		// 		checkPassword(s[1], s[2])       // 比對 client 與 server 計算的mac
+		// 		InsertReciveData(s, remoteAddr) // 新增資料
+		// 	}
+		// } else {
+		// 	conn.Close()
+		// }
 
 	}
 }
@@ -188,6 +190,58 @@ func InsertReciveData(deviceInfo []string, addr string) {
 		deviceInfo[4],
 		deviceInfo[5],
 		deviceInfo[6],
+	); err != nil {
+		fmt.Printf("新增資料失敗 Insert error: %s\n", err)
+	} else {
+		fmt.Printf("新增資料成功 Insert result: %s\n", result)
+	}
+
+	db.Close()
+}
+
+// InsertReciveDataTemp : 新增資料暫時使用這支
+func InsertReciveDataTemp(deviceInfo []string, addr string) {
+	db, err := mysql.Initdb()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(deviceInfo)
+
+	/*
+		透過 mac 取得 name
+		透過 remoteAddr 取得 addr
+		e.g : defaultID,20200519180915830,32.20,62.00,0,,68"
+		substring, e.g:
+		str := "hello world"
+		fmt.Print(str[0:5])
+
+		欄位 {
+			id
+			username
+			addr
+			mac
+			distance
+			temperature
+			humidity
+			date
+			connStatus
+		}
+	*/
+
+	str := deviceInfo[1]
+	date := str[0:8] + "_" + str[8:10] + ":" + str[10:12] + ":" + str[12:14]
+
+	if result, err := db.Exec(
+		"INSERT INTO recive VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?)",
+		deviceInfo[0], // username
+		addr,          // addr
+		deviceInfo[5], // distance
+		"",
+		deviceInfo[2], // temperature
+		deviceInfo[3], // humidity
+		date,          // date
+		1,
 	); err != nil {
 		fmt.Printf("新增資料失敗 Insert error: %s\n", err)
 	} else {

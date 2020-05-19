@@ -36,13 +36,15 @@ func Webservice() {
 
 // ReciveData : 接收到的資料
 type ReciveData struct {
-	id         int
-	name       string
-	addr       string
-	mac        string
-	data       string
-	date       string
-	connStatus string
+	id          int
+	name        string
+	addr        string
+	mac         string
+	distance    string
+	temperature string
+	humidity    string
+	date        string
+	connStatus  string
 }
 
 // Recive : 接收資料結構
@@ -76,7 +78,7 @@ func LoadData() []ReciveData {
 	var data []ReciveData
 	for rows.Next() {
 		var u ReciveData
-		if err := rows.Scan(&u.id, &u.name, &u.addr, &u.mac, &u.data, &u.date, &u.connStatus); err != nil { // check err
+		if err := rows.Scan(&u.id, &u.name, &u.addr, &u.mac, &u.distance, &u.temperature, &u.humidity, &u.date, &u.connStatus); err != nil { // check err
 			fmt.Println(err)
 		}
 		data = append(data, u)

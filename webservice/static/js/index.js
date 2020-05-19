@@ -3,6 +3,8 @@ function loadReciveData(content) {
     let arr = content.split("} "); //分割資料
     arr[arr.length - 1] = arr[arr.length - 1].replace(/\}+/g, "");
 
+    console.log(content)
+
     // 變成物件後載入資料
     items = [];
     for (i = 0; i < arr.length; i++) {
@@ -12,9 +14,11 @@ function loadReciveData(content) {
             name: data[1],
             addr: data[2],
             mac: data[3],
-            data: data[4],
-            date: data[5],
-            conn_status: data[6],
+            distance: data[4],
+            temperature: data[5],
+            humidity: data[6],
+            date: data[7],
+            conn_status: data[8],
         });
     }
 
@@ -80,13 +84,13 @@ function loadReciveData(content) {
                     valign: 'middle',
                     sortable: true,
                 }, {
-                    title: 'name',
+                    title: '使用者名稱',
                     field: 'name',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
                 }, {
-                    title: 'addr',
+                    title: 'IP 位址',
                     field: 'addr',
                     rowspan: 1,
                     align: 'center',
@@ -98,12 +102,24 @@ function loadReciveData(content) {
                     align: 'center',
                     valign: 'middle',
                 }, {
-                    title: 'data',
-                    field: 'data',
+                    title: '藍芽距離',
+                    field: 'distance',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
-                }, {
+                },  {
+                    title: '溫度',
+                    field: 'temperature',
+                    rowspan: 1,
+                    align: 'center',
+                    valign: 'middle',
+                },  {
+                    title: '濕度',
+                    field: 'humidity',
+                    rowspan: 1,
+                    align: 'center',
+                    valign: 'middle',
+                },{
                     title: 'date',
                     field: 'date',
                     rowspan: 1,

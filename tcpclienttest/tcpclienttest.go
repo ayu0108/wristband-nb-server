@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// res, err := sendTCP("av119.ddns.net:8899", "nbserver,user,123456,JinWei,00-15-AF-5A-F8-42")
-	res, err := sendTCP("av119.ddns.net:8899", "nbserver,user,90aae915da86d3b3a4da7a996bc264bfbaf50a953cbbe8cd3478a2a6ccc7b900,00-15-AF-5A-F8-42,-84,2020-04-22,1")
+	res, err := sendTCP("localhost:8899", "defaultID,20200519180915830,32.20,62.00,0,,68")
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
