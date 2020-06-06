@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- 主機: 127.0.0.1
--- 產生時間： 2020-05-22 06:51:05
--- 伺服器版本: 10.1.30-MariaDB
--- PHP 版本： 5.6.33
+-- 主機： localhost
+-- 產生時間： 2020 年 06 月 06 日 21:10
+-- 伺服器版本： 5.7.30-0ubuntu0.18.04.1
+-- PHP 版本： 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -36,13 +35,6 @@ CREATE TABLE `device` (
   `mac` varchar(48) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- 資料表的匯出資料 `device`
---
-
-INSERT INTO `device` (`id`, `account`, `password`, `name`, `mac`) VALUES
-(10, 'user', 'e10adc3949ba59abbe56e057f20f883e', 'JinWei', '00-15-AF-5A-F8-42');
-
 -- --------------------------------------------------------
 
 --
@@ -50,27 +42,20 @@ INSERT INTO `device` (`id`, `account`, `password`, `name`, `mac`) VALUES
 --
 
 CREATE TABLE `recive` (
-  `id` int(16) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `addr` varchar(48) NOT NULL,
-  `mac` varchar(48) DEFAULT NULL,
-  `distance` varchar(255) NOT NULL,
-  `temperature` varchar(255) NOT NULL,
-  `humidity` varchar(255) NOT NULL,
+  `id` int(128) NOT NULL,
+  `deviceID` varchar(128) NOT NULL,
   `date` varchar(255) NOT NULL,
-  `connStatus` tinyint(1) DEFAULT NULL
+  `addr` varchar(48) NOT NULL,
+  `beaconName` varchar(48) DEFAULT NULL,
+  `beaconData` varchar(255) DEFAULT NULL,
+  `serialNumber` varchar(255) NOT NULL,
+  `deviceStatus` varchar(255) DEFAULT NULL,
+  `singal` int(4) DEFAULT NULL,
+  `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- 資料表的匯出資料 `recive`
---
-
-INSERT INTO `recive` (`id`, `name`, `addr`, `mac`, `distance`, `temperature`, `humidity`, `date`, `connStatus`) VALUES
-(2, 'JinWei', '223.141.30.253:22764', '00-15-AF-5A-F8-42', '-80', '32.20', '62.00', '20200519_18:09:15', 1),
-(7, 'defaultID', '[::1]:62223', '', '-60', '31.20', '56.00', '20200520_01:09:15', 1);
-
---
--- 已匯出資料表的索引
+-- 已傾印資料表的索引
 --
 
 --
@@ -86,20 +71,20 @@ ALTER TABLE `recive`
   ADD PRIMARY KEY (`id`);
 
 --
--- 在匯出的資料表使用 AUTO_INCREMENT
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
 --
 
 --
--- 使用資料表 AUTO_INCREMENT `device`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `device`
 --
 ALTER TABLE `device`
   MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- 使用資料表 AUTO_INCREMENT `recive`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `recive`
 --
 ALTER TABLE `recive`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(128) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
