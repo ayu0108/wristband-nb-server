@@ -2,25 +2,40 @@ function loadReciveData(content) {
     content = content.replace(/[\[\]\{]+/g, "")
     let arr = content.split("} "); //分割資料
     arr[arr.length - 1] = arr[arr.length - 1].replace(/\}+/g, "");
-
     console.log(content)
+    console.log(arr)
+
+    data = arr[0].toString().split(" ")
+    temp = data[9].split(",")
+    console.log(data);
+    console.log(temp)
 
     // 變成物件後載入資料
     items = [];
     for (i = 0; i < arr.length; i++) {
         data = arr[i].toString().split(" ")
+
+        // contentSource: 因為完整資料從伺服器傳過來網頁會跑掉，所以要再抓一次
+        contentSource = data[9].split(",") 
+        temperature = contentSource[4]
+        singal = contentSource[7]
         items.push({
             id: data[0],
-            name: data[1],
-            addr: data[2],
-            mac: data[3],
-            distance: data[4],
-            temperature: data[5],
+            deviceID: data[1],
+            date: data[2],
+            addr: data[3],
+            beaconName: data[4],
             humidity: data[6],
-            date: data[7],
-            conn_status: data[8],
+            temperature: temperature,
+            serialNumber: data[8],
+            deviceStatus: data[7],
+            singal: singal,
+            content: data[9],
         });
     }
+
+    console.log(items)
+
 
     var $table = $('#table')
     var $remove = $('#remove')
@@ -78,14 +93,14 @@ function loadReciveData(content) {
             columns: [
                 [{
                     title: 'ID',
-                    field: 'id',
+                    field: 'deviceID',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
                     sortable: true,
                 }, {
-                    title: '使用者名稱',
-                    field: 'name',
+                    title: '日期',
+                    field: 'date',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
@@ -96,39 +111,39 @@ function loadReciveData(content) {
                     align: 'center',
                     valign: 'middle',
                 }, {
-                    title: 'mac',
-                    field: 'mac',
+                    title: '藍芽名稱',
+                    field: 'beaconName',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
-                }, {
-                    title: '藍芽距離',
-                    field: 'distance',
-                    rowspan: 1,
-                    align: 'center',
-                    valign: 'middle',
-                },  {
-                    title: '溫度',
-                    field: 'temperature',
-                    rowspan: 1,
-                    align: 'center',
-                    valign: 'middle',
-                },  {
+                },{
                     title: '濕度',
                     field: 'humidity',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
                 },{
-                    title: 'date',
-                    field: 'date',
+                    title: '溫度',
+                    field: 'temperature',
+                    rowspan: 1,
+                    align: 'center',
+                    valign: 'middle',
+                },  {
+                    title: '編號',
+                    field: 'serialNumber',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
                     sortable: true,
-                }, {
-                    title: 'connStatus',
-                    field: 'conn_status',
+                },{
+                    title: 'NBIOT 訊號',
+                    field: 'singal',
+                    rowspan: 1,
+                    align: 'center',
+                    valign: 'middle',
+                },{
+                    title: '完整資料',
+                    field: 'content',
                     rowspan: 1,
                     align: 'center',
                     valign: 'middle',
@@ -149,4 +164,5 @@ function loadReciveData(content) {
     $(function () {
         initTable()
     })
+}
 }
