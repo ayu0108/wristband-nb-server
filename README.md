@@ -19,6 +19,6 @@
 ### 5. 測試專案: 
 	切換路徑: cd /webservice
 	執行程式: go run webservice.go
-	中斷程式: 按鍵盤上的 `Ctrl + C`
+	中斷程式: 按鍵盤上的 Ctrl + C
 	檢查完沒問題後，打包程式成執行檔: go build
 ### 6. 最後使用 deamon 服務去執行專案。
