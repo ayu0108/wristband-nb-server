@@ -16,4 +16,4 @@
 	執行程式: wristband-nb-server.exe
 	中斷程式: 按鍵盤上的 Ctrl + C
 	檢查完沒問題後，打包程式成執行檔: go build
-### 5. 最後使用 deamon 服務去執行專案(參考網路上教學或公司Teams文件)。
+### 5. 最後使用 deamon 服務去執行專案
